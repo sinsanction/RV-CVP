@@ -1,0 +1,9 @@
+[submodule "NutShell"]
+	path = NutShell
+	url = https://github.com/sinsanction/NutShell
+[submodule "rv-cvp-cnnapi"]
+	path = rv-cvp-cnnapi
+	url = https://github.com/sinsanction/rv-cvp-cnnapi
+[submodule "rv-cvp-test"]
+	path = rv-cvp-test
+	url = https://github.com/sinsanction/rv-cvp-test
