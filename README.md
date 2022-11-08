@@ -21,9 +21,15 @@ xs-env: https://github.com/OpenXiangShan/xs-env
 
 其中 NutShell 需要克隆其子模块 difftest，用于生成模拟器。而 xs-env 只需要用到其中构建环境的脚本，不必克隆其中的子模块。
 
-### 2.生成模拟器
+### 2.部署相关环境
 
-使用 `xs-env` 中的 `setup-tools.sh` 脚本，安装 mill、Verilator 和相关依赖。
+运行 `xs-env` 中的 `setup-tools.sh` 脚本，安装 mill、Verilator 和相关依赖。
+```
+cd xs-env
+sudo -s ./setup-tools.sh
+```
+
+### 3.生成模拟器
 
 切换到 `NutShell` 目录，确保子模块 `difftest` 已经存在。
 
@@ -37,7 +43,9 @@ source ./env.sh
 make emu EMU_CXX_EXTRA_FLAGS="-DFIRST_INST_ADDRESS=0x80000000"
 ```
 
-### 3.编译测试程序
+这一步时间会比较久，需要耐心等待。生成结束后，可以在 `./build/` 目录下看到一个名为 `emu` 的仿真程序。
+
+### 4.编译测试程序
 
 目前仿真环境支持的测试程序需要在 AM 下编写，只支持 C/C++ 程序。
 
@@ -47,7 +55,7 @@ make emu EMU_CXX_EXTRA_FLAGS="-DFIRST_INST_ADDRESS=0x80000000"
 
 #### 使用现有程序
 
-我们提供了一些预先写好的 RV-CVP 指令集程序，已经集成在 AM 中。
+我们提供了一些预先写好的 RV-CVP 指令集程序，已经集成在 AM ([https://github.com/sinsanction/nexus-am](https://github.com/sinsanction/nexus-am)) 中。
 
 [cnnbench](https://github.com/sinsanction/nexus-am/tree/master/apps/cnnbench): 单个算子的测试程序。
 
@@ -56,6 +64,10 @@ make emu EMU_CXX_EXTRA_FLAGS="-DFIRST_INST_ADDRESS=0x80000000"
 #### 编译方法
 
 将 `AM_HOME` 设为 AM 的绝对路径，可以使用 `env.sh` 来设置。
+```
+cd nexus-am
+source ./env.sh
+```
 
 以编译 cnnbench 中的功能测试程序为例。
 
@@ -66,7 +78,9 @@ make ARCH=riscv64-nutshell mainargs=testfunc
 
 最后在 `nexus-am/apps/cnnbench/build` 下会生成 bin 文件。
 
-### 4.在模拟器上运行
+可使用的测试程序的详细说明见上方 `cnnbench` 和 `cnnapibench` 的文档。
+
+### 5.在模拟器上运行
 
 ```
 path/to/emu --no-diff -b 0 -e 0 -C 10000000 -i path/to/*.bin
