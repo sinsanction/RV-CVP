@@ -17,26 +17,31 @@ NutShell: https://github.com/sinsanction/NutShell
 
 AM: https://github.com/sinsanction/nexus-am
 
-xs-env: https://github.com/OpenXiangShan/xs-env
+xs-env: https://github.com/sinsanction/xs-env
 
-其中 NutShell 需要克隆其子模块 difftest，用于生成模拟器。而 xs-env 只需要用到其中构建环境的脚本，不必克隆其中的子模块。
+其中 xs-env 用于搭建相关开发环境，目前前两者已经在 xs-env 子模块中收录，不必单独克隆。
+```
+git clone https://github.com/sinsanction/xs-env.git
+```
 
 ### 2.部署相关环境
 
-运行 `xs-env` 中的 `setup-tools.sh` 脚本，安装 mill、Verilator 和相关依赖。
+运行 `xs-env` 中的脚本，安装 mill、Verilator 和相关依赖。
 ```
 cd xs-env
 sudo -s ./setup-tools.sh
+source setup.sh
 ```
 
 ### 3.生成模拟器
 
-切换到 `NutShell` 目录，确保子模块 `difftest` 已经存在。
-
-运行 `env.sh`，设置环境变量。
+在 `xs-env` 目录运行 `env.sh`，设置环境变量。
 ```
+cd xs-env
 source ./env.sh
 ```
+
+切换到 `NutShell` 目录，确保子模块 `difftest` 已经存在。
 
 生成模拟器 emu。
 ```
