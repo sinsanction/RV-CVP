@@ -11,6 +11,19 @@ RV-CVP 开源项目，包括以下三个部分：
 
 前者通过 mill 和 Verilator 实现，后者通过 AM ——一个裸机运行时环境来编译生成可在模拟器上运行的程序。
 
+### 0.Docker 构建
+
+```
+docker pull ubuntu:20.04
+docker run -tid --net host --name test_rv_cvp -v $HOME:/host ubuntu:20.04
+docker start test_rv_cvp
+docker exec -it test_rv_cvp bash -c "ln -s /host $HOME"
+docker exec -it test_rv_cvp bash
+# docker stop test_rv_cvp
+```
+通过上述命令构建本项目所需的 docker 环境。
+如果不需要在 docker 中运行可以跳过这一步。
+
 ### 1.克隆以下仓库
 
 NutShell: https://github.com/sinsanction/NutShell
